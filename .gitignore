@@ -1,0 +1,32 @@
+[project_name] .gitignore File
+
+# This file will cause the Git version control software to ignore
+# any of the file and directory patterns in this directory.
+# It is also used as a way to include a directory structure in the
+# repository without having to put an active file in the directory.
+
+#-----------------------------------------------------------------------------
+# Project specific directories   
+#-----------------------------------------------------------------------------
+
+#-----------------------------------------------------------------------------
+# Project specific files
+#-----------------------------------------------------------------------------
+
+
+#-----------------------------------------------------------------------------
+# generic files to ignore
+#-----------------------------------------------------------------------------
+*~
+*.lock
+*.DS_Store
+*.swp
+*.out
+thumbs.db
+*.xls
+*.xlsx
+*.pdf
+*.doc
+*.docx
+*.bak
+
