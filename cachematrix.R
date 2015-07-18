@@ -12,14 +12,28 @@
 ## object along with the functions and objects necessary to manage that cache
 
 makeCacheMatrix <- function(x = matrix()) {
+    
+    # initialize the cache (uses one variable for storage)
     x_inv <- NULL
+    
+    # define function to set the matrix x. each time the matrix 
+    # is set, the cache is cleared
     set <- function(y) {
         x <<- y
-        x_inv <<- NULL
+        x_inv <- NULL
+        #x_inv <<- matrix()
     }
-    get <- function() x_inv
+    
+    # define a function to return the matrix x
+    get <- function() x
+
+    # a function to programatically set the inverse of matrix x    
     setinv <- function(inv_of_x_in) x_inv <<- inv_of_x_in
+
+    # a function to return the inverse of x from the cache
     getinv <- function() x_inv
+    
+    # return a list of references to these functions
     list(set    = set, 
          get    = get,
          setinv = setinv,
@@ -32,42 +46,23 @@ makeCacheMatrix <- function(x = matrix()) {
 ## object has previously been computed or by computing the object
 
 cacheSolve <- function(x, ...) {
-    ## Return a matrix that is the inverse of 'x'
-    
+
+    # check whether inverse is already in cache and return the cached
+    # value if it is
     x_inv <- x$getinv()
     if(!is.null(x_inv)) {
         message("getting cached data")
         return(x_inv)
     }
+    
+    # if not in the cache, compute it
     data <- x$get()
     x_inv <- solve(data, ...)
+    
+    # store the inverse in the cache
     x$setinv(x_inv)
+    
+    # and return the computed value
     x_inv
     
-}
-
-makeVector <- function(x = numeric()) {
-    m <- NULL
-    set <- function(y) {
-        x <<- y
-        m <<- NULL
-    }
-    get <- function() x
-    setmean <- function(mean) m <<- mean
-    getmean <- function() m
-    list(set = set, get = get,
-         setmean = setmean,
-         getmean = getmean)
-}
-
-cachemean <- function(x, ...) {
-    m <- x$getmean()
-    if(!is.null(m)) {
-        message("getting cached data")
-        return(m)
-    }
-    data <- x$get()
-    m <- mean(data, ...)
-    x$setmean(m)
-    m
 }
